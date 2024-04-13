@@ -37,8 +37,11 @@ class HomeController
                     <a href="https://www.twitch.tv/graycen" id="twitchLink" class="btn btn-primary mr-2" target="_blank">
                         <i class="fab fa-twitch"></i> Twitch
                     </a>
-                    <a href="https://www.linkedin.com/in/grayadams1/" id="linkedInLink" class="btn btn-primary" target="_blank">
+                    <a href="https://www.linkedin.com/in/grayadams1/" id="linkedInLink" class="btn btn-primary mr-2" target="_blank">
                         <i class="fab fa-linkedin-in"></i> LinkedIn
+                    </a>
+                    <a href="/posts" id="blog" class="btn btn-primary">
+                        <i class="fas fa-book"></i> Diary
                     </a>
                 </div>
                 
