@@ -163,6 +163,18 @@ class PostController
             </nav>
             <!-- Post Content -->
             <div class='container mt-4'>
+            <style>
+            img[src*='#left'] {
+                float: left;
+            }
+            img[src*='#right'] {
+                float: right;
+            }
+            img[src*='#center'] {
+                display: block;
+                margin: auto;
+            }
+            </style>
                 <div class='post-content'>
                     $htmlContent
                 </div>
