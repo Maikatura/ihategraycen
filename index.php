@@ -8,8 +8,8 @@ require __DIR__ . '/vendor/autoload.php';
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', ['HomeController', 'index']);
-    $r->addRoute('GET', '/posts[/]', ['PostController', 'index']);
-    $r->addRoute('GET', '/post/{post_name:[a-zA-Z0-9_-]+}[/]', ['PostController', 'PostIndex']);
+    $r->addRoute('GET', '/diary[/]', ['PostController', 'index']);
+    $r->addRoute('GET', '/diary/{post_name:[a-zA-Z0-9_-]+}[/]', ['PostController', 'PostIndex']);
    });
 
 // Fetch method and URI from somewhere

@@ -62,10 +62,10 @@ class PostController
                         <div class='card mb-4'>
                             <div class='card-body'>
                                 <h2 class='card-title'>{$post['title']}</h2>
-                                <a href='/post/{$post['url']}' class='btn btn-primary'>Read More &rarr;</a>
+                                <a href='/diary/{$post['url']}' class='btn btn-primary'>Read More &rarr;</a>
                             </div>
                             <div class='card-footer text-muted'>
-                                Posted on {$post['date']->format('Y-m-d')} by <a href='/post/{$post['url']}'>{$post['author']}</a>
+                                Posted on {$post['date']->format('Y-m-d')} by <a href='/diary/{$post['url']}'>{$post['author']}</a>
                             </div>
                         </div>
                     ";

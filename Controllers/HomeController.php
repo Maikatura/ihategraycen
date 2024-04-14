@@ -40,7 +40,7 @@ class HomeController
                     <a href="https://www.linkedin.com/in/grayadams1/" id="linkedInLink" class="btn btn-primary mr-2" target="_blank">
                         <i class="fab fa-linkedin-in"></i> LinkedIn
                     </a>
-                    <a href="/posts" id="blog" class="btn btn-primary">
+                    <a href="/diary" id="blog" class="btn btn-primary">
                         <i class="fas fa-book"></i> Diary
                     </a>
                 </div>
