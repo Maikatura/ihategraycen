@@ -3,14 +3,90 @@
 class PostController
 {
 
+
+
+
     public function index()
+    {
+        $this->PostList(__DIR__ . '/../static/posts/*.md');
+    }
+
+    public function PostIndex($args)
+    {
+        $this->PostViewer($args, __DIR__ . '/../static/posts/*.md');
+    }
+
+    public function HiddenIndex()
+    {
+        $this->PostList(__DIR__ . '/../static/posts/unpublished/*.md');
+    }
+
+    public function HiddenPostIndex($args)
+    {
+        $this->PostViewer($args, __DIR__ . '/../static/posts/unpublished/*.md');
+    }
+
+    public function PostProfile($args)
+    {
+
+        $username = empty($args['username']) ? ucfirst("Graycen") : ucfirst($args['username']);
+
+        echo  "
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Graycens Diary</title>
+            <!-- Darkly Bootstrap CSS -->
+            <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/darkly/bootstrap.min.css'>
+        </head>
+        <body>
+            <!-- Navbar -->
+            <nav class='navbar navbar-expand-lg navbar-dark bg-primary'>
+                <a class='navbar-brand' href='/'>Graycens Diary</a>
+            </nav>
+            <!-- Post Content -->
+            <div class='container mt-4'>
+            <style>
+            img[src*='#left'] {
+                float: left;
+            }
+            img[src*='#right'] {
+                float: right;
+            }
+            img[src*='#center'] {
+                display: block;
+                margin: auto;
+            }
+            </style>
+                <div class='post-content'>
+                <center>
+                    <h1>{$username} Jackass</h1>
+                    <img src='/static/media/posts/jackass.png'><br><br>
+                    <p>I am a World of Boredcraft Twitch streamer from the United States. I am also active on LinkedIn, where I shares his thoughts on smoking hot Fands and Blizzard.</p>
+                    <p>Follow me on Twitch and LinkedIn to stay up-to-date with his latest content.</p>
+                    <a href='https://www.twitch.tv/graycen' class='btn btn-primary'>Twitch</a>
+                    <a href='https://www.linkedin.com/in/grayadams1/' class='btn btn-primary'>LinkedIn</a>
+                    </center>
+                    </div>
+            </div>
+            <!-- Bootstrap JS and jQuery -->
+            <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+            <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+        </body>
+        </html>";
+    }
+
+
+    public function PostList($postPath)
     {
         require __DIR__ . '/../vendor/autoload.php';
 
         // Get all Markdown files in the posts directory
-        $markdownFiles = glob(__DIR__ . '/../static/posts/*.md');
+        $markdownFiles = glob($postPath);
     
         $posts = [];
+
+        $urlPath = strpos($postPath, 'unpublished') !== false ? 'hidden' : 'diary';
     
         // Loop through all files to extract the metadata
         foreach ($markdownFiles as $markdownFile) {
@@ -56,16 +132,19 @@ class PostController
             <div class='container mt-4'>
                 <div class='post-list'>";
         
-                foreach ($posts as $post) {
+                foreach ($posts as $post) 
+                {
+
+                    $username = ucfirst($post['author']);
                     echo "
                     
                         <div class='card mb-4'>
                             <div class='card-body'>
                                 <h2 class='card-title'>{$post['title']}</h2>
-                                <a href='/diary/{$post['url']}' class='btn btn-primary'>Read More &rarr;</a>
+                                <a href='/{$urlPath}/{$post['url']}' class='btn btn-primary'>Read More &rarr;</a>
                             </div>
                             <div class='card-footer text-muted'>
-                                Posted on {$post['date']->format('Y-m-d')} by <a href='/diary/{$post['url']}'>{$post['author']}</a>
+                                Posted on {$post['date']->format('Y-m-d')} by <a href='/profile/{$username}'>{$username}</a>
                             </div>
                         </div>
                     ";
@@ -79,16 +158,20 @@ class PostController
             <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
         </body>
         </html>";
+
     }
 
-    public function PostIndex($args)
+    public function PostViewer($args, $postPath)
     {
         require __DIR__ . '/../vendor/autoload.php';
 
         $parsedown = new Parsedown();
 
+        $urlPath = strpos($postPath, 'unpublished') !== false ? 'hidden' : 'diary';
+    
+
         // Get all Markdown files in the posts directory
-        $markdownFiles = glob(__DIR__ . '/../static/posts/*.md');
+        $markdownFiles = glob($postPath);
 
         $markdownContent = '';
         $author = '';
@@ -109,7 +192,7 @@ class PostController
 
 
             if ($url === $args["post_name"]) {
-                $author = $authorMatches[1] ?? "Unknown"; // Use file name without extension if no author match
+                $author = ucfirst($authorMatches[1]) ?? "Unknown"; // Use file name without extension if no author match
                 $date = $dateMatches[1] ?? '1970-01-01';
                 $title = $title[1] ?? 'No Title';
 
@@ -141,9 +224,9 @@ class PostController
         if ($markdownContent !== '') {
 
             $date = DateTime::createFromFormat('Y-m-d', $date);
-            $htmlContent = "<a href='/posts'>&larr; Back to Posts</a><hr>";
+            $htmlContent = "<a href='/{$urlPath}'>&larr; Back to Posts</a><hr>";
             $htmlContent .= "<h1>$title</h1>";
-            $htmlContent .= "Posted on " . $date->format('Y-m-d') ." by <a href='#'>". $author ."</a><hr>";
+            $htmlContent .= "Posted on " . $date->format('Y-m-d') ." by <a href='/profile/{$author}'>". $author ."</a><hr>";
 
             $htmlContent .= $parsedown->text($markdownContent);
         }
@@ -184,5 +267,6 @@ class PostController
             <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
         </body>
         </html>";
+
     }
 }
