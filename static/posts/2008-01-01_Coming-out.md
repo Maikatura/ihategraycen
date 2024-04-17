@@ -5,4 +5,4 @@ title: Coming out
 
 <center>I am gay</center>
 
-![I am gay](/static/media/posts/gayge.png#center)
+![I am gay](/static/media/gayge.png#center)

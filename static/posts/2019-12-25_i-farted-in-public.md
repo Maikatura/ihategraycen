@@ -7,4 +7,4 @@ Okay so I was in public today with my coutout girlfriend of sylvanas I was going
 I felt so embarrassed and I felt so much guilt that I farted again. I wish I could just stay home and play WoW. Just kidding I was at home playing WoW.
 I have not been outside the 63 years that I have lived. So I just made this story up.
 
-![graycenRage](/static/media/posts/graycenRage.png)
+![graycenRage](/static/media/graycenRage.png)

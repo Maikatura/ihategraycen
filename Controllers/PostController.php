@@ -161,6 +161,9 @@ class PostController
 
     }
 
+
+
+
     public function PostViewer($args, $postPath)
     {
         require __DIR__ . '/../vendor/autoload.php';
@@ -228,7 +231,7 @@ class PostController
             $htmlContent .= "<h1>$title</h1>";
             $htmlContent .= "Posted on " . $date->format('Y-m-d') ." by <a href='/profile/{$author}'>". $author ."</a><hr>";
 
-            $htmlContent .= $parsedown->text($markdownContent);
+            $htmlContent .= $this->ParseString($parsedown->text($markdownContent));
         }
 
         echo "
@@ -249,14 +252,36 @@ class PostController
             <style>
             img[src*='#left'] {
                 float: left;
+                max-width: 100%;
+                padding: 1em;
             }
             img[src*='#right'] {
                 float: right;
+                max-width: 100%;
+                padding: 1em;
             }
             img[src*='#center'] {
                 display: block;
                 margin: auto;
+                max-width: 100%;
+                padding: 1em;
             }
+
+            img[src*='#leftwrap'] {
+                float: left; /* This makes the image float to the left */
+                width: 40%; /* This sets the width of the image to 40% of its parent container */
+                margin-right: 1em;
+                max-width: 100%;
+                padding: 1em;
+            }
+            img[src*='#rightwrap'] {
+                float: right; /* This makes the image float to the left */
+                width: 40%; /* This sets the width of the image to 40% of its parent container */
+                margin-left: 1em;
+                max-width: 100%;
+                padding: 1em;
+            }
+            
             </style>
                 <div class='post-content'>
                     $htmlContent
@@ -268,5 +293,19 @@ class PostController
         </body>
         </html>";
 
+    }
+
+    public function ParseString($string)
+    {
+        $content = $string;
+
+        preg_match('/rand\((\d+),\s*(\d+)\)/', $content, $matches);
+
+        if ($matches) {
+            $randomNumber = rand($matches[1], $matches[2]);
+            $content = str_replace($matches[0], $randomNumber, $content);
+        }
+
+        return $content;
     }
 }
