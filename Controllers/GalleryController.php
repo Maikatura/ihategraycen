@@ -4,7 +4,6 @@ class GalleryController
 {
     public function index()
     {
-        
         echo "<!DOCTYPE html>
         <html>
         <head>
@@ -27,7 +26,6 @@ class GalleryController
             <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
         </body>
         </html>";
-        
     }
 
     public function Gallery()
@@ -35,9 +33,9 @@ class GalleryController
         return "<style>
         .containerImg {
             display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
           }
           
           
@@ -46,9 +44,9 @@ class GalleryController
         <div class='containerImg'>
 
     
-      <img src='/static/gallery/GraycenWide.png' width='100%'>
+        <img src='/static/gallery/GraycenWide.png' width='100%'>
       
 
-</div>";
+        </div>";
     }
 }

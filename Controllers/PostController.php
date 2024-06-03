@@ -76,7 +76,6 @@ class PostController
         </html>";
     }
 
-
     public function PostList($postPath)
     {
         require __DIR__ . '/../vendor/autoload.php';
